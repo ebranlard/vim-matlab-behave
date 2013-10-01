@@ -4,13 +4,15 @@ matlab-behave.vim
 Reproduces several matlab behavior.
 
 Attempts to reproduce: 
-    - "Run current cell" (Ctrl-Enter -> ,k)
-    - "Run script" (F5 -> ,m) 
-    - "Run selection" (F9)
+
+- "Run current cell" (Ctrl-Enter -> ,k)
+- "Run script" (F5 -> ,m) 
+- "Run selection" (F9)
 
 Provides also the following:
-    - "Run line" (,l)
-    - "Run in new external matlab" (F4)
+
+- "Run line" (,l)
+- "Run in new external matlab" (F4)
 
 
 Gives other functionality:
@@ -99,10 +101,10 @@ Feel free to change these mappings, or uncomment the one above that are the "mat
 Explanation of some commands used
 ----------------------------
 
-" normal mm : set mark to rememeber where the cursor was
-" normal `m : go back to mark
-" :?%%\|\%^?;/%%\|\%$/w   : search backward to %% OR beginning of file  and then forward to %% OR \%$ (end of file) and write/pipe the selection to the xclip command
-" !wmctrl -a MATLAB  : switch to a window that has "matlab" in its name (hopefully, Matlab itself...)
+- normal mm : set mark to rememeber where the cursor was
+- normal `m : go back to mark
+- :?%%\|\%^?;/%%\|\%$/w   : search backward to %% OR beginning of file  and then forward to %% OR \%$ (end of file) and write/pipe the selection to the xclip command
+- !wmctrl -a MATLAB  : switch to a window that has "matlab" in its name (hopefully, Matlab itself...)
 
 
 
