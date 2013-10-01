@@ -61,7 +61,8 @@ endfunction
 
 """ Run current script in a new matlab session
 function! MatRunExtern()
-    call system('$TERM -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
+    call system('xterm -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
+"     call system('$TERM -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
 "     call system('matlab -nojvm', "run(\'".expand("%:p")."')" )
 "    execute '!echo "' ."run(\'".expand("%:p")."\')" . '"| matlab -nojvm'  
 endfunction
