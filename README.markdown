@@ -19,6 +19,7 @@ Gives other functionality:
 
 
 NOTE: See section "Mapping" below
+
 NOTE: The run functionalities are Linux only for now.
 
 
@@ -41,7 +42,7 @@ Copy the file "ftplugin/matlab_behave.vim" into the equivalent location in your 
 If you don't have a preferred installation method, I recommend installing [pathogen.vim](https://github.com/tpope/vim-pathogen), and then simply copy and paste:
 
     cd ~/.vim/bundle
-    git clone git://github.com/elmanuelito/vim-matlab-run.git
+    git clone git://github.com/elmanuelito/vim-matlab-behave.git
 
 
 Installation - matlab side
