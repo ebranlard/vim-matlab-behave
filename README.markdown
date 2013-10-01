@@ -4,20 +4,18 @@ matlab-behave.vim
 Reproduces several matlab behavior.
 
 Attempts to reproduce: 
-
 - "Run current cell" (Ctrl-Enter -> ,k)
 - "Run script" (F5 -> ,m) 
 - "Run selection" (F9)
 
 Provides also the following:
-
 - "Run line" (,l)
 - "Run in new external matlab" (F4)
 
 
 Gives other functionality:
-    - Put cell title in bold. 
-    - Allow cell folding (za zo) and jumping from cell to cell using vim folding mappings (zj zk)
+- Put cell title in bold. 
+- Allow cell folding (za zo) and jumping from cell to cell using vim folding mappings (zj zk)
 
 
 NOTE: See section "Mapping" below
