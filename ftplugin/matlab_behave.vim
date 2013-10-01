@@ -61,7 +61,7 @@ endfunction
 
 """ Run current script in a new matlab session
 function! MatRunExtern()
-    call system('xfce4-terminal -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
+    call system('$TERM -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
 "     call system('matlab -nojvm', "run(\'".expand("%:p")."')" )
 "    execute '!echo "' ."run(\'".expand("%:p")."\')" . '"| matlab -nojvm'  
 endfunction
@@ -81,7 +81,7 @@ endfunction
 " Mapping preferred by the author
 map <buffer>,m :w <cr> :call MatRun() <cr><cr>
 map <buffer>,k :w <cr> :call MatRunCell()  <cr><cr>
-" map <buffer>,k :call MatRunCellAdvanced()  <cr><cr>
+map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
 map <buffer>,l :w <cr> :call MatRunLine()  <cr><cr>
 map <buffer><f4> :w <cr> :call MatRunExtern() <cr><cr>
 vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
