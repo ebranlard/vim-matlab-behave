@@ -14,7 +14,7 @@ Case 2: The use wants the script to be run in a new matlab instance. This is don
 Functionalities
 ----------------
 
-Below is a list of functionalities. Default vim mappings are written within parenthesis (see section "Mapping" below for more), and the vim-function are written within brackets.
+Below is a list of functionalities. Default mappings are written within parenthesis (see section "Mapping" below for more), and the vim-function are written within brackets.
 Reproducing some matlab editor commands:
 - "Run current cell" (,k) [MatRunCell]
 - "Run current cell and go back to editor" (,o) [MatRunCellAdvanced]
@@ -126,7 +126,7 @@ Explanation of some commands used
 Contributing
 ------------
 
-Please do!
+Please do, and don't hesitate to contact me.
 
 License
 -------
