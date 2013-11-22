@@ -4,6 +4,10 @@
 "   See readme file shipped with plugin
 " Author: E. Branlard (lastname at gmail dot com)
 
+" Do not enable this plugin if xclip or wmctrl is unavailable.
+if !executable('xclip') || !executable('wmctrl')
+    finish
+endif
 
 " --------------------------------------------------------------------------------
 " --- Cell title in bold 
