@@ -48,7 +48,7 @@ Basic principle of the "run" functionalities
 Installation - System
 ---------------------
 
-Install wmctrl from your linux distribution
+Install wmctrl and xclip from your linux distribution
 
 Installation - Vim
 ------------------
