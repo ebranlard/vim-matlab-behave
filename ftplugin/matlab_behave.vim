@@ -84,12 +84,12 @@ endfunction
 " map <buffer>,n :call MatRunCellAdvanced()  <cr><cr>
 
 " Mapping preferred by the author
-map <buffer>,m :w <cr> :call MatRun() <cr><cr>
-map <buffer>,k :w <cr> :call MatRunCell()  <cr><cr>
-map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
-map <buffer>,l :w <cr> :call MatRunLine()  <cr><cr>
-map <buffer><f4> :w <cr> :call MatRunExtern() <cr><cr>
-vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
+" map <buffer>,m :w <cr> :call MatRun() <cr><cr>
+" map <buffer>,k :w <cr> :call MatRunCell()  <cr><cr>
+" map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
+" map <buffer>,l :w <cr> :call MatRunLine()  <cr><cr>
+" map <buffer><f4> :w <cr> :call MatRunExtern() <cr><cr>
+" vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
 
 " 
 
