@@ -20,7 +20,7 @@ function! MatRunSelect()
     echo @*
     redir END
     execute "!echo \" \">>/tmp/buff"
-    execute "!echo \"edit ".expand("%:p")."\">>/tmp/buff"
+    " execute "!echo \"edit ".expand("%:p")."\">>/tmp/buff"
     !cat /tmp/buff|xclip -selection c
     normal `m
     !wmctrl -a "MATLAB R2013b"
