@@ -1,4 +1,4 @@
-matlab-behave.vim
+matlab-behave.vim  (Not for windows so far)
 ==============
 
 Facilitates the use of vim/gvim as external editor to Matlab and attempt to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor.
