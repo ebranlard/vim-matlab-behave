@@ -4,8 +4,37 @@
 "   See readme file shipped with plugin
 " Author: E. Branlard (lastname at gmail dot com)
 
-" Do not enable this plugin if xclip or wmctrl is unavailable.
-if !executable('xclip') || !executable('wmctrl')
+
+
+" --------------------------------------------------------------------------------
+" --- Cell title in bold 
+" --------------------------------------------------------------------------------
+highlight MATCELL cterm=bold term=bold gui=bold
+match MATCELL /%%.*$/
+
+" --------------------------------------------------------------------------------
+" --- Folding 
+" --------------------------------------------------------------------------------
+function! MatlabFolds()
+    let thisline = getline(v:lnum)
+    if match(thisline,'^[\ ]*%%') >=0
+        return ">1"
+    else
+        return "="
+    endif
+endfunction
+
+setlocal foldmethod=expr
+setlocal foldexpr=MatlabFolds()
+
+
+" --------------------------------------------------------------------------------
+" --- Run functionality requirements 
+" --------------------------------------------------------------------------------
+" Do not enable this plugin if some if these tools are unavailable.
+" Linux: they should be installed by the user
+" Windows: The rest of the script is rely on these tools, so is not compatible
+if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
     finish
 endif
 
@@ -100,27 +129,6 @@ if g:matlab_behave_mapping_kind == 1
 endif
 
 " 
-
-" --------------------------------------------------------------------------------
-" --- Cell title in bold 
-" --------------------------------------------------------------------------------
-highlight MATCELL cterm=bold term=bold gui=bold
-match MATCELL /%%.*$/
-
-" --------------------------------------------------------------------------------
-" --- Folding 
-" --------------------------------------------------------------------------------
-function! MatlabFolds()
-    let thisline = getline(v:lnum)
-    if match(thisline,'^[\ ]*%%') >=0
-        return ">1"
-    else
-        return "="
-    endif
-endfunction
-
-setlocal foldmethod=expr
-setlocal foldexpr=MatlabFolds()
 
 " --------------------------------------------------------------------------------
 " ---  With Align plugin
