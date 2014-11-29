@@ -14,7 +14,7 @@ Case 2: The use wants the script to be run in a new matlab instance. This is don
 Functionalities
 ----------------
 
-Below is a list of functionalities. Default mappings are written within parenthesis (see section "Mapping" below for more), and the vim-function are written within brackets.
+Below is a list of functionalities. Default mappings are written within parenthesis (Mappings are activated by default. See section "Mapping" below for more), and the vim-function are written within brackets.
 Reproducing some matlab editor commands:
 - "Run current cell" (,k) [MatRunCell]
 - "Run current cell and go back to editor" (,o) [MatRunCellAdvanced]
@@ -107,9 +107,17 @@ For best support of matlab use Fabrice Guy's plugin
 Mappings
 ------------------------------------------------
 
+Mappings are activated by default.
 Mappings are defined in the "matlab_behave.vim". (look for Mappings in this file)
-The author prefer more "vim-like" mappings that do not require lifting up the hands: ",k" and ",m" respectively to run cell or run script.
-Feel free to change these mappings, or uncomment the one above that are the "matlab ones".
+- To desactivate the mappings add in your vimrc:
+
+    let g:matlab_behave_mapping_kind=-1
+
+
+- To switch between the different kinds of mapping, change the value of the variable above.
+The "kind=1" mappings are the one prefered by the author (more "vim-like", they do not require lifting up the hands: ",k" and ",m" respectively to run cell or run script)
+
+The "kind=0" mappings are the "matlab ones"
 
 
 
