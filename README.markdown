@@ -1,4 +1,4 @@
-matlab-behave.vim  (Not for windows so far)
+matlab-behave.vim  
 ==============
 
 Facilitates the use of vim/gvim as external editor to Matlab and attempt to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor.
@@ -30,6 +30,8 @@ Cell and folding support:
 - Put cell title in bold. 
 - Allow cell folding (za zo) and jumping from cell to cell using vim folding mappings (zj zk)
 
+Opening files in vim when an error is trown: (see "Installation - matlab side" below)
+
 
 NOTE: The run functionalities are Linux only for now. It is based on "wmctrl" (see Installation - System). 
 
@@ -48,7 +50,11 @@ Basic principle of the "run" functionalities
 Installation - System
 ---------------------
 
-Install wmctrl and xclip from your linux distribution
+
+Install wmctrl, xclip and xdotool from your linux distribution.
+
+I didn't look for alternatives on windows. Please contribute. 
+
 
 Installation - Vim
 ------------------
@@ -67,32 +73,23 @@ Installation - matlab side
 
 This is optional.  For matlab to switch back to vim/gvim automatically go to matlab options: File/Preferences/Editor: set Editor to vim/gvim , e.g. "gvim --remote-tab-silent"
 
-Further, to have the possibility to click on matlab command window links when an error or a warning is thrown to jump directly to the right location in vim you will neet to create a matlab sctip called opentoline.m  and put it in your matlab path. The file content is listed below. For best fonctionality (line number), you might need the vim plugin "file:line.vim".
+Further, to have the possibility to click on matlab command window links when an error or a warning is thrown to jump directly to the right location in vim: 
 
-    function opentoline(file, line, column)
-    %   This is a hack to override the built-in opentoline program in MATLAB.
-    
-        editor = system_dependent('getpref', 'EditorOtherEditor');
-        editor = editor(2:end);
-        
-        if nargin==3
-            linecol = sprintf('+%d:%d',line,column);
-            linecol = sprintf('+%d',line); % tehre is something about -c "normal column|" but it didn't work
-        else
-            linecol = sprintf('+%d',line);
-        end
-        
-        if ispc
-            % On Windows, we need to wrap the editor command in double quotes
-            % in case it contains spaces
-            system(['"' editor '" "' linecol '" "' file '"&']);
-        else
-            % On UNIX, we don't want to use quotes in case the user's editor
-            % command contains arguments (like "xterm -e vi")
-    %         disp('proiu');
-            system([editor ' "' linecol '" "' file '" &']);
-        end
-    end
+- For versions before 2012 (I think), things were easier. It was enough to add the file "opentoline.m" (present in this repository) to your matlab path.
+For best fonctionality (line number), you might need the vim plugin "file:line.vim".
+
+- For version 2013 (I think), they started to hard-code the opentoline functionality in their java interface. I doesnt hurt to add opentoline.m to your matlab path. It might work.
+When an error is thrown, it is still possible to open a file in vim by overriding the file +helpUtils/errorDocCallback.m
+   - Create a folder "+helpUtils"
+   - put the file errorDocCallback.m (from this repository)
+   - Add the root folder to your maltba path. 
+This will work when you click on the filename, but not when you click on the line number (this would open matlab editor...). If you manage to override this opentoline, let me know...
+
+
+- For above versions, I haven't tried but maybe the 2013 option works..
+
+
+
     
 
 Other complementary plugins
@@ -115,9 +112,8 @@ Mappings are defined in the "matlab_behave.vim". (look for Mappings in this file
 
 
 - To switch between the different kinds of mapping, change the value of the variable above.
-The "kind=1" mappings are the one prefered by the author (more "vim-like", they do not require lifting up the hands: ",k" and ",m" respectively to run cell or run script)
-
-The "kind=0" mappings are the "matlab ones"
+   - The "kind=1" mappings are the one prefered by the author (more "vim-like", they do not require lifting up the hands: ",k" and ",m" respectively to run cell or run script)
+   - The "kind=0" mappings are the "matlab ones"
 
 
 
