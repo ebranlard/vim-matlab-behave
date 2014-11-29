@@ -75,21 +75,29 @@ endfunction
 " --------------------------------------------------------------------------------
 " --- Mappings 
 " --------------------------------------------------------------------------------
+if !exists("g:matlab_behave_mapping_kind")
+    let g:matlab_behave_mapping_kind=1
+endif
+
 " Matlab like mappings: 
-" map <buffer><F5> :w <cr> :call MatRun() <cr><cr>
-" map <buffer><C-CR>,k :w <cr> :call MatRunCell()  <cr><cr>
-" vmap <buffer><F9> :call MatRunSelect()  <cr><cr>
-" map <buffer>,l :w <cr> :call MatRunLine()  <cr><cr>
-" map <buffer><f4> :w <cr> :call MatRunExtern() <cr><cr>
-" map <buffer>,n :call MatRunCellAdvanced()  <cr><cr>
+if g:matlab_behave_mapping_kind == 0
+    map <buffer><F5> :w <cr> :call MatRun() <cr><cr>
+    map <buffer><C-CR>,k :w <cr> :call MatRunCell()  <cr><cr>
+    vmap <buffer><F9> :call MatRunSelect()  <cr><cr>
+    map <buffer>,l :w <cr> :call MatRunLine()  <cr><cr>
+    map <buffer><f4> :w <cr> :call MatRunExtern() <cr><cr>
+    map <buffer>,n :call MatRunCellAdvanced()  <cr><cr>
+endif
 
 " Mapping preferred by the author
-map <buffer>,m :w! <cr> :call MatRun() <cr><cr>
-map <buffer>,k :w! <cr> :call MatRunCell()  <cr><cr>
-map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
-map <buffer>,l :w! <cr> :call MatRunLine()  <cr><cr>
-map <buffer><f4> :w! <cr> :call MatRunExtern() <cr><cr>
-vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
+if g:matlab_behave_mapping_kind == 1
+    map <buffer>,m :w! <cr> :call MatRun() <cr><cr>
+    map <buffer>,k :w! <cr> :call MatRunCell()  <cr><cr>
+    map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
+    map <buffer>,l :w! <cr> :call MatRunLine()  <cr><cr>
+    map <buffer><f4> :w! <cr> :call MatRunExtern() <cr><cr>
+    vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
+endif
 
 " 
 
