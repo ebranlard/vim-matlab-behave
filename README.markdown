@@ -67,7 +67,9 @@ You can change this variable in your vimrc, for instance "ctrl+shift+v" or any o
 - The software (Matlab and Octave supported) used is customized using the following variable:
 
     let g:matlab_behave_software="matlab" (default)
+
 or
+
     let g:matlab_behave_software="octave"
 
 If you change to Octave, don't forget to change window base name:
