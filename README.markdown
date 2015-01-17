@@ -2,7 +2,7 @@ matlab-behave.vim
 ==============
 
 Facilitates the use of vim/gvim as external editor to Matlab (GUI or terminal):
-- attempt to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor (Linux only for now).
+- attempts to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor (Linux only).
 - adds cell folding and highlighting
 - jumping to an error location by clicking on a error link in the command window.
 
@@ -10,7 +10,7 @@ Facilitates the use of vim/gvim as external editor to Matlab (GUI or terminal):
 Functionalities
 ----------------
 
-Below is a list of functionalities. Default mappings are written within parenthesis (Mappings are activated by default. See section "Mapping" below for more), and the vim-function are written within brackets. If they do not work, see section "Customization" below.
+Below is a list of functionalities. Default mappings are written within parenthesis (See section "Mapping"), and the vim functions are written within brackets. If they do not work, see section "Customization" below.
 
 Reproducing some matlab editor commands:
 - "Run current cell" (,k) [MatRunCell]
@@ -38,7 +38,7 @@ Basic principle of the "run" functionalities
 ---------------------------------------------------------------------
 
 - (Save file)
-- Copy some text (selection, cell, line, script run command, etc.) into the two unix clipboards. For this it sometimes use a tmp file.
+- Copy some text (selection, cell, line, script, etc.) into the two unix clipboards. A tmp file is sometimes used.
 - Automatically switch to matlab window (GUI or terminal) using wmctrl (The window name is customized with "g:matlab_behave_window_name", if two windows have this name, this might fail).
 - The content is paste automatically (If it fails try customizing "g:matlab_behave_paste_cmd", or use "Ctrl-V" or the middle mouse button).
 - (Depending on the command, after pasting, it will go back to vim (see Installation - matlab side) )
@@ -49,12 +49,12 @@ Customization
 
 For mapping customization, see section "Mapping".
 
-- The Switch to matlab window (GUI or terminal) is done using "wmctrl" and is based on the name of the window. (try "wmctrl -l" to see a list of window name)
+- The Switch to matlab window (GUI or terminal) is done using "wmctrl" and is based on the name of the window (try "wmctrl -l" to see a list of window name).
 The window base name is defined by default as:
 
     let g:matlab_behave_window_name="MATLAB R"
 
-This should work for Matlab GUI. You can change this variable in your vimrc. If you run matlab in a terminal, you should change this to the title of the terminal window or alternatively change the title of the terminal window to fit. For example, for xfce4-terminal, the following commant will open Matlab in a proper terminal window:
+This should work for Matlab GUI. You can change this variable in your vimrc. If you run matlab in a terminal, you should change this to the title of the terminal window or alternatively change the title of the terminal window to fit. For example, for xfce4-terminal, the following command will open Matlab in a proper terminal window:
 
     xfce4-terminal -T "MATLAB R" --working-directory=/work/code --command='matlab -nojvm'
 
