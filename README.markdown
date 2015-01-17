@@ -64,6 +64,21 @@ This should work for Matlab GUI. You can change this variable in your vimrc. If 
 
 You can change this variable in your vimrc, for instance "ctrl+shift+v" or any other mapping that would work in the matlab GUI/Terminal.
 
+- The software (Matlab and Octave supported) used is customized using the following variable:
+
+    let g:matlab_behave_software="matlab" (default)
+
+or
+
+    let g:matlab_behave_software="octave"
+
+If you change to Octave, don't forget to change window base name:
+
+    let g:matlab_behave_window_name="OCTAVE"
+
+and use Octave on a window with OCTAVE name, for example:
+
+    xfce4-terminal -T "OCTAVE" --working-directory=/work/code --command='octave'
 
 
 Installation - System

@@ -48,6 +48,10 @@ endif
 if !exists("g:matlab_behave_paste_cmd")
     let g:matlab_behave_paste_cmd="ctrl+v"
 endif
+if !exists("g:matlab_behave_software")
+    let g:matlab_behave_software="matlab"
+    let g:matlab_behave_software_param="-nojvm"
+endif
 
 """ SwitchPastecommand: Switch to matlab window and paste in it. 
 " Customize it with the two variables above in your vimrc.  
@@ -104,7 +108,7 @@ endfunction
 """ Run current script 
 function! MatRun()
     normal mm
-    let @+="cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
+    let @+="cd('".expand("%:p:h")."\'); run('".expand("%:p")."')\n"
     call system('xclip -selection c ', @+)
     call system('xclip ', @+)
     normal `m
@@ -113,10 +117,11 @@ endfunction
 
 """ Run current script in a new matlab session
 function! MatRunExtern()
-    call system('xterm -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"&')
-"     call system('$TERM -e "matlab -nojvm -r '.shellescape('run '.expand("%:p")).'"')
-"     call system('matlab -nojvm', "run(\'".expand("%:p")."')" )
-"    execute '!echo "' ."run(\'".expand("%:p")."\')" . '"| matlab -nojvm'  
+    if g:matlab_behave_software == "matlab"
+        call system("$TERM -e ".g:matlab_behave_software." ".g:matlab_behave_software_param." -r ".shellescape('run '.expand("%:p"))."&")
+    elseif g:matlab_behave_software == "octave"
+        call system("$TERM -e ".g:matlab_behave_software." --persist ".shellescape(expand("%:p"))."&")
+    endif
 endfunction
 
 
