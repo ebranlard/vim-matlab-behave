@@ -38,6 +38,12 @@ if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
     finish
 endif
 
+""" Paste command
+function! PasteCommand()
+    " edit the key as you need
+    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+endfunction
+
 " --------------------------------------------------------------------------------
 " --- Cell title in bold 
 " --------------------------------------------------------------------------------
@@ -52,7 +58,7 @@ function! MatRunSelect()
     " execute "!echo \"edit ".expand("%:p")."\">>/tmp/buff"
     !cat /tmp/buff|xclip -selection c
     normal `m
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    :call PasteCommand()
 endfunction
 
 """ Run Current line
@@ -60,7 +66,7 @@ function! MatRunLine()
     " write current line and pipe to xclip
     :.w !xclip -selection c
     "     normal "+yy
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    :call PasteCommand()
 endfunction
 
 """ Run Current Cell
@@ -68,7 +74,7 @@ function! MatRunCell()
     normal mm
     :?%%\|\%^?;/%%\|\%$/w !xclip -selection c 
     normal `m
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    :call PasteCommand()
 endfunction
 
 """ Run Current cell and go back to editor
@@ -79,7 +85,7 @@ function! MatRunCellAdvanced()
     execute "!echo \"edit ".expand("%:f")."\">>/tmp/buff"
     !cat /tmp/buff|xclip -selection c
     normal `m
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    :call PasteCommand()
 endfunction
 
 """ Run current script 
@@ -89,7 +95,7 @@ function! MatRun()
     call system('xclip -selection c ', @+)
     call system('xclip ', @+)
     normal `m
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    :call PasteCommand()
 endfunction
 
 """ Run current script in a new matlab session
