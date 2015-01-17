@@ -1,20 +1,17 @@
 matlab-behave.vim  
 ==============
 
-Facilitates the use of vim/gvim as external editor to Matlab and attempt to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor.
-
-Case 1: The user wants to use Matlab GUI functionalities while keeping the power of Vim for editing.
-Both programs are running independently but the switch from one to the other is automated with this plugin:
-- Going from vim to matlab is achieved using wmctrl (Linux). The user then have to paste to Matlab's command window (using mouse middle click or a mapping like Ctrl-V). If you are not on the command window the matlab shortcut Ctrl-0 should bring you there.
-- Going from matlab to vim is done by using Matlab command edit(this command may be dumped automatically by this plugin for commands that "go back to the editor") or by using the mouse when an error or warning is thrown in the command window by your script.
-
-Case 2: The use wants the script to be run in a new matlab instance. This is done with the function MatRunExtern (F4). Customize it to your need.
+Facilitates the use of vim/gvim as external editor to Matlab (GUI or terminal):
+- attempt to reproduce typical F5, F9, Ctrl-Enter "run" functionalities of matlab editor (Linux only for now).
+- adds cell folding and highlighting
+- jumping to an error location by clicking on a error link in the command window.
 
 
 Functionalities
 ----------------
 
-Below is a list of functionalities. Default mappings are written within parenthesis (Mappings are activated by default. See section "Mapping" below for more), and the vim-function are written within brackets.
+Below is a list of functionalities. Default mappings are written within parenthesis (Mappings are activated by default. See section "Mapping" below for more), and the vim-function are written within brackets. If they do not work, see section "Customization" below.
+
 Reproducing some matlab editor commands:
 - "Run current cell" (,k) [MatRunCell]
 - "Run current cell and go back to editor" (,o) [MatRunCellAdvanced]
@@ -30,7 +27,7 @@ Cell and folding support:
 - Put cell title in bold. 
 - Allow cell folding (za zo) and jumping from cell to cell using vim folding mappings (zj zk)
 
-Opening files in vim when an error is trown: (see "Installation - matlab side" below)
+Opening files in vim when an error is thrown: (see "Installation - matlab side" below)
 
 
 NOTE: The run functionalities are Linux only for now. It is based on "wmctrl" (see Installation - System). 
@@ -42,9 +39,31 @@ Basic principle of the "run" functionalities
 
 - (Save file)
 - Copy some text (selection, cell, line, script run command, etc.) into the two unix clipboards. For this it sometimes use a tmp file.
-- Automatically switch to matlab window using wmctrl. If another window contains the name Matlab in it, this might fail.
-- User have to paste (using Ctrl-V for instance or the middle mouse button).
+- Automatically switch to matlab window (GUI or terminal) using wmctrl (The window name is customized with "g:matlab_behave_window_name", if two windows have this name, this might fail).
+- The content is paste automatically (If it fails try customizing "g:matlab_behave_paste_cmd", or use "Ctrl-V" or the middle mouse button).
 - (Depending on the command, after pasting, it will go back to vim (see Installation - matlab side) )
+
+
+Customization
+-------------
+
+For mapping customization, see section "Mapping".
+
+- The Switch to matlab window (GUI or terminal) is done using "wmctrl" and is based on the name of the window. (try "wmctrl -l" to see a list of window name)
+The window base name is defined by default as:
+
+    let g:matlab_behave_window_name="MATLAB R"
+
+This should work for Matlab GUI. You can change this variable in your vimrc. If you run matlab in a terminal, you should change this to the title of the terminal window or alternatively change the title of the terminal window to fit. For example, for xfce4-terminal, the following commant will open Matlab in a proper terminal window:
+
+    xfce4-terminal -T "MATLAB R" --working-directory=/work/code --command='matlab -nojvm'
+
+- The command pasting is customized using the following variable:
+
+    let g:matlab_behave_paste_cmd="ctrl+v"
+
+You can change this variable in your vimrc, for instance "ctrl+shift+v" or any other mapping that would work in the matlab GUI/Terminal.
+
 
 
 Installation - System
@@ -131,6 +150,7 @@ Contributing
 ------------
 
 Please do, and don't hesitate to contact me.
+
 
 License
 -------

@@ -2,7 +2,7 @@
 " Site: http://github.com/elmanuelito/vim-matlab-behave
 " Help And Description:
 "   See readme file shipped with plugin
-" Author: E. Branlard (lastname at gmail dot com)
+" Author: E. Branlard (lastname at gmail dot com) and Github contributors!
 
 
 
@@ -38,10 +38,23 @@ if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
     finish
 endif
 
-""" Paste command
-function! PasteCommand()
-    " edit the key as you need
-    !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+
+" --------------------------------------------------------------------------------
+" --- Customization of the command to swtich to matlab and paste
+" --------------------------------------------------------------------------------
+if !exists("g:matlab_behave_window_name")
+    let g:matlab_behave_window_name="MATLAB R"
+endif
+if !exists("g:matlab_behave_paste_cmd")
+    let g:matlab_behave_paste_cmd="ctrl+v"
+endif
+
+""" SwitchPastecommand: Switch to matlab window and paste in it. 
+" Customize it with the two variables above in your vimrc.  
+" Thanks to adrianolinux for the idea.
+function! SwitchPasteCommand()
+    " !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+    execute "!wmctrl -a \"".g:matlab_behave_window_name."\";xdotool key \"".g:matlab_behave_paste_cmd."\""
 endfunction
 
 " --------------------------------------------------------------------------------
@@ -58,7 +71,7 @@ function! MatRunSelect()
     " execute "!echo \"edit ".expand("%:p")."\">>/tmp/buff"
     !cat /tmp/buff|xclip -selection c
     normal `m
-    :call PasteCommand()
+    :call SwitchPasteCommand()
 endfunction
 
 """ Run Current line
@@ -66,7 +79,7 @@ function! MatRunLine()
     " write current line and pipe to xclip
     :.w !xclip -selection c
     "     normal "+yy
-    :call PasteCommand()
+    :call SwitchPasteCommand()
 endfunction
 
 """ Run Current Cell
@@ -74,7 +87,7 @@ function! MatRunCell()
     normal mm
     :?%%\|\%^?;/%%\|\%$/w !xclip -selection c 
     normal `m
-    :call PasteCommand()
+    :call SwitchPasteCommand()
 endfunction
 
 """ Run Current cell and go back to editor
@@ -85,7 +98,7 @@ function! MatRunCellAdvanced()
     execute "!echo \"edit ".expand("%:f")."\">>/tmp/buff"
     !cat /tmp/buff|xclip -selection c
     normal `m
-    :call PasteCommand()
+    :call SwitchPasteCommand()
 endfunction
 
 """ Run current script 
@@ -95,7 +108,7 @@ function! MatRun()
     call system('xclip -selection c ', @+)
     call system('xclip ', @+)
     normal `m
-    :call PasteCommand()
+    :call SwitchPasteCommand()
 endfunction
 
 """ Run current script in a new matlab session
