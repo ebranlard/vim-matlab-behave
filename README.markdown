@@ -49,20 +49,18 @@ Customization
 
 For mapping customization, see section "Mapping".
 
-- The Switch to matlab window (GUI or terminal) is done using "wmctrl" and is based on the name of the window (try "wmctrl -l" to see a list of window name).
-The window base name is defined by default as:
+- The terminal used by MatRunExtern is customized either by the environment variable $TERM or using the following variable
 
-    let g:matlab_behave_window_name="MATLAB R"
+    let g:matlab_behave_terminal="xterm"  (default)
 
-This should work for Matlab GUI. You can change this variable in your vimrc. If you run matlab in a terminal, you should change this to the title of the terminal window or alternatively change the title of the terminal window to fit. For example, for xfce4-terminal, the following command will open Matlab in a proper terminal window:
-
-    xfce4-terminal -T "MATLAB R" --working-directory=/work/code --command='matlab -nojvm'
+Depending on the terminal, you might need to customize the pasting cmd (see below).
 
 - The command pasting is customized using the following variable:
 
-    let g:matlab_behave_paste_cmd="ctrl+v"
+    let g:matlab_behave_paste_cmd="ctrl+v" (default)
 
-You can change this variable in your vimrc, for instance "ctrl+shift+v" or any other mapping that would work in the matlab GUI/Terminal.
+You can change this variable in your vimrc, for instance "Ctrl+Shift+v" or "Shift+Insert", or any other mapping that would work in the matlab window (GUI or Terminal).
+
 
 - The software (Matlab and Octave supported) used is customized using the following variable:
 
@@ -72,13 +70,25 @@ or
 
     let g:matlab_behave_software="octave"
 
-If you change to Octave, don't forget to change window base name:
 
-    let g:matlab_behave_window_name="OCTAVE"
 
-and use Octave on a window with OCTAVE name, for example:
+- The Switch to matlab window (GUI or terminal) is done using the linux tool "wmctrl" and is based on the name of the window (try "wmctrl -l" to see a list of window name).
+The window base name is defined by default as:
 
-    xfce4-terminal -T "OCTAVE" --working-directory=/work/code --command='octave'
+    let g:matlab_behave_window_name="MATLAB R" (default)
+
+This should work for Matlab GUI. When using MatRunExtern the pluggin attempt to force the title of the terminal window using the command line switch -T (supported by xterm and xfce4-terminal) and the above variable.  You can change the variable in your vimrc. If you are opening the terminal yourself and not using MatRunExtern, you could try to set the variable above so that it fits the title of your terminal window (run "wmctrl -l" to find it) or alternatively change the title of the terminal window to fit the variable. For example, for xfce4-terminal, the following command will open Matlab in a proper terminal window with the title "MATLAB R":
+
+    xfce4-terminal -T "MATLAB R" --working-directory=/work/code --command='matlab -nojvm'
+
+
+<--- If you change to Octave, don't forget to change window base name:
+ 
+     let g:matlab_behave_window_name="OCTAVE"
+ 
+ and use Octave on a window with OCTAVE name, for example:
+ 
+     xfce4-terminal -T "OCTAVE" --working-directory=/work/code --command='octave' --->
 
 
 Installation - System
