@@ -4,6 +4,20 @@
 "   See readme file shipped with plugin
 " Author: E. Branlard (lastname at gmail dot com) and Github contributors!
 
+" Documentation:
+" Registers:
+"    Clear register a
+"       normal qaq 
+"    Set a register to a given value
+"       let @a ="\n" 
+"    Use redirection to a buffer       
+"       redir @s
+"       echo "..."
+"       redir end
+"    Search backward and forawrd and paste in register s (uppercase S is to append)
+"       :?%%\|\%^?;/%%\|\%$/y S
+"       :?%%\|\%^?;/%%\|\%$/y s
+
 
 
 " --------------------------------------------------------------------------------
