@@ -66,6 +66,16 @@ if !exists("g:matlab_behave_software")
     let g:matlab_behave_software="matlab"
     let g:matlab_behave_software_param="-nojvm"
 endif
+" Which terminal to use for MatRunExtern
+if !exists("g:matlab_behave_terminal")
+    " Testing wheter environment variable exists
+    if empty($TERM)
+        " Default value
+        let g:matlab_behave_terminal="xterm" 
+    else
+        let g:matlab_behave_terminal=$TERM
+    end
+endif
 
 """ SwitchPastecommand: Switch to matlab window and paste in it. 
 " Customize it with the two variables above in your vimrc.  
@@ -132,9 +142,9 @@ endfunction
 """ Run current script in a new matlab session
 function! MatRunExtern()
     if g:matlab_behave_software == "matlab"
-        call system("$TERM -T '".g:matlab_behave_window_name."' -e ".g:matlab_behave_software." ".g:matlab_behave_software_param." -r ".shellescape('run '.expand("%:p"))."&")
+        call system(g:matlab_behave_terminal." -T '".g:matlab_behave_window_name."' -e \"".g:matlab_behave_software." ".g:matlab_behave_software_param." -r ".shellescape('run '.expand("%:p"))."\"&")
     elseif g:matlab_behave_software == "octave"
-        call system("$TERM -T '".g:matlab_behave_window_name."' -e ".g:matlab_behave_software." --persist ".shellescape(expand("%:p"))."&")
+        call system(g:matlab_behave_terminal." -T '".g:matlab_behave_window_name."' -e ".g:matlab_behave_software." --persist ".shellescape(expand("%:p"))."&")
     endif
 endfunction
 
