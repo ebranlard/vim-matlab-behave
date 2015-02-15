@@ -82,7 +82,7 @@ endif
 " Thanks to adrianolinux for the idea.
 function! SwitchPasteCommand()
     " !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
-    execute "!wmctrl -a \"".g:matlab_behave_window_name."\";xdotool key \"".g:matlab_behave_paste_cmd."\""
+    execute "!wmctrl -a \"".g:matlab_behave_window_name."\";xdotool key \"Escape\";xdotool key \"".g:matlab_behave_paste_cmd."\""
 endfunction
 
 " --------------------------------------------------------------------------------
