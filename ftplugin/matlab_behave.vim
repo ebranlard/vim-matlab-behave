@@ -136,7 +136,7 @@ endfunction
 """ Run current script 
 function! MatRun()
     normal mm
-    let @+="cd('".expand("%:p:h")."\'); run('".expand("%:p")."')\n"
+    let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
     call system('xclip -selection c ', @+)
     call system('xclip ', @+)
     normal `m
