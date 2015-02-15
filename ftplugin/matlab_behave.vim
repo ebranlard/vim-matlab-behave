@@ -118,9 +118,9 @@ endfunction
 """ Run current script in a new matlab session
 function! MatRunExtern()
     if g:matlab_behave_software == "matlab"
-        call system("$TERM -e ".g:matlab_behave_software." ".g:matlab_behave_software_param." -r ".shellescape('run '.expand("%:p"))."&")
+        call system("$TERM -T '".g:matlab_behave_window_name."' -e ".g:matlab_behave_software." ".g:matlab_behave_software_param." -r ".shellescape('run '.expand("%:p"))."&")
     elseif g:matlab_behave_software == "octave"
-        call system("$TERM -e ".g:matlab_behave_software." --persist ".shellescape(expand("%:p"))."&")
+        call system("$TERM -T '".g:matlab_behave_window_name."' -e ".g:matlab_behave_software." --persist ".shellescape(expand("%:p"))."&")
     endif
 endfunction
 
