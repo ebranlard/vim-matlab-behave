@@ -113,7 +113,11 @@ endfunction
 """ Run Current Cell
 function! MatRunCell()
     normal mm
-    :?%%\|\%^?;/%%\|\%$/w !xclip -selection c 
+"     :?%%\|\%^?;/%%\|\%$/w !xclip -selection c 
+" Search cell and write to register b (uppercase B to append)
+    :?%%\|\%^?;/%%\|\%$/y b
+    call system('xclip -selection c ', @b)
+    call system('xclip ', @b)
     normal `m
     :call SwitchPasteCommand()
 endfunction
