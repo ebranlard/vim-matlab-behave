@@ -49,6 +49,7 @@ setlocal foldexpr=MatlabFolds()
 " Linux: they should be installed by the user
 " Windows: The rest of the script is rely on these tools, so is not compatible
 if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
+	echo "vim-matlab-behave needs xclip, wmctrl and xdotool to be installed."
     finish
 endif
 
