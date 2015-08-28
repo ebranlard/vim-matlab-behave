@@ -186,8 +186,8 @@ endif
 " ---  With Align plugin
 " --------------------------------------------------------------------------------
 " Remeber there is \tt for latex tables and \tsp for spaces
-vmap ,af :Align Ip0p1= = ( ) ; % ,<CR>
-vmap ,ae :Align Ip0p1= = ; %<CR>
+" vmap ,af :Align Ip0p1= = ( ) ; % ,<CR>
+" vmap ,ae :Align Ip0p1= = ; %<CR>
 "  vmap ,aa :Align Ip0p1= = ; %<CR>
 " --------------------------------------------------------------------------------
 " ---  Old
