@@ -48,9 +48,19 @@ setlocal foldexpr=MatlabFolds()
 " Do not enable this plugin if some if these tools are unavailable.
 " Linux: they should be installed by the user
 " Windows: The rest of the script is rely on these tools, so is not compatible
-if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
-	echo "vim-matlab-behave needs xclip, wmctrl and xdotool to be installed."
-    finish
+if has("win32") || has("win16")
+    if !executable('wmctrl')
+        echo "vim-matlab-behave needs wmctrl to be in your path (search for wmctrl-for-windows on the web)."
+        finish
+    endif
+    if !executable('xdotool')
+        echo "vim-matlab-behave needs xdotool to be in your path (search for wmctrl-for-windows on the web)."
+    endif
+else
+    if !executable('xclip') || !executable('wmctrl') || !executable('xdotool')
+        echo "vim-matlab-behave needs xclip, wmctrl and xdotool to be installed."
+        finish
+    endif
 endif
 
 
@@ -58,10 +68,18 @@ endif
 " --- Customization of the command to swtich to matlab and paste
 " --------------------------------------------------------------------------------
 if !exists("g:matlab_behave_window_name")
-    let g:matlab_behave_window_name="MATLAB R"
+    if has("win32") || has("win16")
+        let g:matlab_behave_window_name="MATLAB"
+    else
+        let g:matlab_behave_window_name="MATLAB R"
+    endif
 endif
 if !exists("g:matlab_behave_paste_cmd")
-    let g:matlab_behave_paste_cmd="ctrl+v"
+    if has("win32") || has("win16")
+        let g:matlab_behave_paste_cmd="^v"
+    else
+        let g:matlab_behave_paste_cmd="ctrl+v"
+    endif
 endif
 if !exists("g:matlab_behave_software")
     let g:matlab_behave_software="matlab"
@@ -82,8 +100,15 @@ endif
 " Customize it with the two variables above in your vimrc.  
 " Thanks to adrianolinux for the idea.
 function! SwitchPasteCommand()
-    " !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
-    execute "!wmctrl -a \"".g:matlab_behave_window_name."\";xdotool key \"Escape\";xdotool key \"".g:matlab_behave_paste_cmd."\""
+    if has("win32") || has("win16")
+        " Windows: wmctrl doesn't accepts quotes for now
+        "!start /b wmctrl -a MATLAB & xdotool key "{Escape}" & xdotool key "^v"
+        "execute "!start /b SwitchAndPasteToMatlab MATLAB \"^v\""
+        execute "!start /b SwitchAndPasteToMatlab ".g:matlab_behave_window_name." \"".g:matlab_behave_paste_cmd."\""
+    else
+        " !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
+        execute "!wmctrl -a \"".g:matlab_behave_window_name."\" ; xdotool key \"Escape\"   ; xdotool key \"".g:matlab_behave_paste_cmd."\""
+    endif
 endfunction
 
 " --------------------------------------------------------------------------------
@@ -114,13 +139,24 @@ endfunction
 """ Run Current Cell
 function! MatRunCell()
     normal mm
+    if has("win32") || has("win16")
+        " backup  register * into register c
+        let @c=@*
+        " Search cell and 
+        :?%%\|\%^?;/%%\|\%$/y 
+"         " putting b into *
+"         let @*=@b
 "     :?%%\|\%^?;/%%\|\%$/w !xclip -selection c 
-" Search cell and write to register b (uppercase B to append)
-    :?%%\|\%^?;/%%\|\%$/y b
-    call system('xclip -selection c ', @b)
-    call system('xclip ', @b)
+    else
+        " Search cell and write to register b (uppercase B to append)
+        :?%%\|\%^?;/%%\|\%$/y b
+        " Put register in system clipboard
+        call system('xclip -selection c ', @b)
+        call system('xclip ', @b)
+    endif
     normal `m
     :call SwitchPasteCommand()
+"     let @*=@c
 endfunction
 
 """ Run Current cell and go back to editor
@@ -138,8 +174,11 @@ endfunction
 function! MatRun()
     normal mm
     let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
-    call system('xclip -selection c ', @+)
-    call system('xclip ', @+)
+    if has("win32") || has("win16")
+    else
+        call system('xclip -selection c ', @+)
+        call system('xclip ', @+)
+    endif
     normal `m
     :call SwitchPasteCommand()
 endfunction
@@ -173,12 +212,21 @@ endif
 
 " Mapping preferred by the author
 if g:matlab_behave_mapping_kind == 1
-    map <buffer>,m :w! <cr> :call MatRun() <cr><cr>
-    map <buffer>,k :w! <cr> :call MatRunCell()  <cr><cr>
-    map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
-    map <buffer>,l :w! <cr> :call MatRunLine()  <cr><cr>
-    map <buffer><f4> :w! <cr> :call MatRunExtern() <cr><cr>
-    vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
+    if has("win32") || has("win16")
+        map <buffer>,m :w! <cr> :call MatRun() <cr><cr>
+        map <buffer>,k :w! <cr> :call MatRunCell()  <cr><cr>
+        map <buffer>,o :call MatRunCellAdvanced()  <cr>
+        map <buffer>,l :w! <cr> :call MatRunLine()  <cr>
+        map <buffer><f4> :w! <cr> :call MatRunExtern() <cr>
+        vmap <buffer><f9> :call MatRunSelect()  <cr>
+    else
+        map <buffer>,m :w! <cr> :call MatRun() <cr><cr>
+        map <buffer>,k :w! <cr> :call MatRunCell()  <cr><cr>
+        map <buffer>,o :call MatRunCellAdvanced()  <cr><cr>
+        map <buffer>,l :w! <cr> :call MatRunLine()  <cr><cr>
+        map <buffer><f4> :w! <cr> :call MatRunExtern() <cr><cr>
+        vmap <buffer><f9> :call MatRunSelect()  <cr><cr>
+    endif
 endif
 
 " 
