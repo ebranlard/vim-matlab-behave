@@ -88,6 +88,9 @@ if !exists("g:matlab_behave_paste_cmd")
         let g:matlab_behave_paste_cmd="ctrl+v"
     endif
 endif
+if !exists("g:matlab_behave_autoexec")
+    let g:matlab_behave_autoexec=0
+endif
 if !exists("g:matlab_behave_software")
     let g:matlab_behave_software="matlab"
     let g:matlab_behave_software_param="-nojvm"
@@ -180,7 +183,11 @@ endfunction
 """ Run current script 
 function! MatRun()
     normal mm
-    let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
+    if g:matlab_behave_autoexec
+        let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')\n"
+    else
+        let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
+    endif
     if has("win32") || has("win16")
     else
         call system('xclip -selection c ', @+)
