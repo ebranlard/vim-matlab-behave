@@ -180,7 +180,7 @@ endfunction
 """ Run current script 
 function! MatRun()
     normal mm
-    let @+="cd('".expand("%:p:h")."\'); run('".expand("%:p")."') \n"
+    let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
     if has("win32") || has("win16")
     else
         call system('xclip -selection c ', @+)
