@@ -74,22 +74,12 @@ if !exists("g:matlab_behave_window_name")
         let g:matlab_behave_window_name="MATLAB R"
     endif
 endif
-if !exists("g:matlab_behave_focus_cmd")
-    if has("win32") || has("win16")
-        let g:matlab_behave_focus_cmd="^0"
-    else
-        let g:matlab_behave_focus_cmd="ctrl+0"
-    endif
-endif
 if !exists("g:matlab_behave_paste_cmd")
     if has("win32") || has("win16")
         let g:matlab_behave_paste_cmd="^v"
     else
         let g:matlab_behave_paste_cmd="ctrl+v"
     endif
-endif
-if !exists("g:matlab_behave_autoexec")
-    let g:matlab_behave_autoexec=0
 endif
 if !exists("g:matlab_behave_software")
     let g:matlab_behave_software="matlab"
@@ -117,7 +107,7 @@ function! SwitchPasteCommand()
         execute "!start /b SwitchAndPasteToMatlab ".g:matlab_behave_window_name." \"".g:matlab_behave_paste_cmd."\""
     else
         " !wmctrl -a "MATLAB R";xdotool key "ctrl+v"
-        execute "!wmctrl -a \"".g:matlab_behave_window_name."\" ; xdotool key \"".g:matlab_behave_focus_cmd."\"   ; xdotool key \"".g:matlab_behave_paste_cmd."\""
+        execute "!wmctrl -a \"".g:matlab_behave_window_name."\" ; xdotool key \"Escape\"   ; xdotool key \"".g:matlab_behave_paste_cmd."\""
     endif
 endfunction
 
@@ -183,11 +173,7 @@ endfunction
 """ Run current script 
 function! MatRun()
     normal mm
-    if g:matlab_behave_autoexec
-        let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')\n"
-    else
-        let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
-    endif
+    let @+="\n cd('".expand("%:p:h")."\'); run('".expand("%:p")."')"
     if has("win32") || has("win16")
     else
         call system('xclip -selection c ', @+)

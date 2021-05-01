@@ -42,7 +42,6 @@ Basic principle of the "run" functionalities
 - (Save file)
 - Copy some text (selection, cell, line, script, etc.) into the two unix clipboards. A tmp file is sometimes used.
 - Automatically switch to matlab window (GUI or terminal) using wmctrl (The window name is customized with "g:matlab_behave_window_name", if two windows have this name, this might fail).
-- Automatically focus MATLAB's prompt (In modern MATLAB versions it is done with "Ctrl-0" by default. In some previuos edition it was "Escape". It can be customized with "g:matlab_behave_focus_cmd").
 - The content is paste automatically (If it fails try customizing "g:matlab_behave_paste_cmd", or use "Ctrl-V" or the middle mouse button).
 - (Depending on the command, after pasting, it will go back to vim (see Installation - matlab side) )
 
