@@ -173,6 +173,20 @@ Explanation of some commands used
 - !wmctrl -a MATLAB  : switch to a window that has "matlab" in its name (hopefully, Matlab itself...)
 
 
+Special configurations
+----------------------------
+Below are some tips for special system configurations. 
+
+**Uxing xmonat windows manager**
+
+Include the Ewmh package from contrib in your xmonad config: http://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Hooks-EwmhDesktops.html
+
+**Using Termite (matlab in the terminal)**
+
+Use the ```-t``` switch to set the wm_name of the termite window such that wmctrl can find it (```-t "MATLAB R"``` or change the ```g:matlab_behave_window_name``` variable in your .vimrc)
+Pasting from the selection clipboard (used by xclip in this plugin) you need ```let g:matlab_behave_paste_cmd = 'ctrl+shift+v'``` in .vimrc.
+
+
 
 Contributing
 ------------
